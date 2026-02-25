@@ -7,8 +7,9 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.List;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.Mockito.when;
 import static org.mockito.ArgumentMatchers.any;
@@ -33,6 +34,30 @@ class CustomerControllerTests {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").isArray())
                 .andExpect(jsonPath("$.length()").value(0));
+    }
+
+    @Test
+    void getCustomer_notFound_returns404() throws Exception {
+        when(customerService.findById(99L)).thenReturn(Optional.empty());
+
+        mockMvc.perform(get("/customers/99"))
+            .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void getCustomerById_returnsCustomer() throws Exception {
+        Customer customer = new Customer();
+        customer.setId(1L);
+        customer.setName("Alice");
+        customer.setEmail("alice@test.com");
+
+        when(customerService.findById(1L)).thenReturn(Optional.of(customer));
+
+        mockMvc.perform(get("/customers/1"))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.id").value(1))
+            .andExpect(jsonPath("$.name").value("Alice"))
+            .andExpect(jsonPath("$.email").value("alice@test.com"));
     }
 
     @Test
