@@ -11,4 +11,9 @@ public class CustomerServiceImpl implements CustomerService {
     public List<Customer> findAll() {
         return List.of();
     }
+
+    @Override
+    public Customer create(Customer customer) {
+        return null;
+    }
 }
