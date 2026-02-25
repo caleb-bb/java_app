@@ -8,6 +8,12 @@ import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+//
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
 @RestController
 public class CustomerController {
 
@@ -24,4 +30,9 @@ public class CustomerController {
         return customerService.findAll();
         }
 
+    @PostMapping("/customers")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Customer create(@RequestBody Customer customer) {
+        return customerService.create(customer);
+    }
 }
