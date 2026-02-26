@@ -7,4 +7,5 @@ public interface CustomerService {
     List<Customer> findAll();
     Customer create(Customer customer);
     Optional<Customer> findById(Long id);
+    Optional<Customer> update(Long id, Customer customer);
 }

@@ -13,8 +13,9 @@ import java.util.Optional;
 
 import static org.mockito.Mockito.when;
 import static org.mockito.ArgumentMatchers.any;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -76,5 +77,23 @@ class CustomerControllerTests {
         .andExpect(status().isCreated())
         .andExpect(jsonPath("$.id").value(1))
         .andExpect(jsonPath("$.createdAt").exists());
+    }
+
+    @Test
+    void updateCustomer_returnsUpdatedCustomer() throws Exception {
+       Customer updated = new Customer();
+       updated.setId(1L);
+       updated.setName("Alice");
+       updated.setEmail("alice@test.com");
+       updated.setCreatedAt(LocalDateTime.now());
+
+       when(customerService.update(any(Long.class), any(Customer.class))).thenReturn(Optional.of(updated));
+
+       mockMvc.perform(put("/customers/1")
+                       .contentType(MediaType.APPLICATION_JSON)
+                       .content("{\"name\":\"Bob\",\"email\":\"bob@test.com\"}"))
+           .andExpect(status().isOk())
+           .andExpect(jsonPath("$.name").value("Bob"))
+           .andExpect(jsonPath("$.email").value("bob@test.com"));
     }
 }
