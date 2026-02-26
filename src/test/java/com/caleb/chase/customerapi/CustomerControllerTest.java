@@ -83,8 +83,8 @@ class CustomerControllerTests {
     void updateCustomer_returnsUpdatedCustomer() throws Exception {
        Customer updated = new Customer();
        updated.setId(1L);
-       updated.setName("Alice");
-       updated.setEmail("alice@test.com");
+       updated.setName("Bob");
+       updated.setEmail("bob@test.com");
        updated.setCreatedAt(LocalDateTime.now());
 
        when(customerService.update(any(Long.class), any(Customer.class))).thenReturn(Optional.of(updated));
