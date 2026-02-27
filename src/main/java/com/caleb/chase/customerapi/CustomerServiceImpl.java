@@ -1,3 +1,6 @@
+// This module does all the work when the Customer controller calls functions
+// defined in the customer service interface.
+
 package com.caleb.chase.customerapi;
 
 import java.util.List;

@@ -1,3 +1,7 @@
+// This is the controller for Customers. The HTTP request hits the endpoints
+// defined in this controller and then goes to the CustomerService interface,
+// which is the only thing this controller sees.
+
 package com.caleb.chase.customerapi;
 
 // get requests return an empty LIST of Customers
