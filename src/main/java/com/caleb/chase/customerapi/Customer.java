@@ -12,7 +12,7 @@ public class Customer {
     private String name;
 
     @NotBlank
-    // @Email
+    @Email
     private String email;
     private LocalDateTime createdAt;
 
