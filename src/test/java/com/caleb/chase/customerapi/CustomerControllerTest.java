@@ -81,6 +81,14 @@ class CustomerControllerTests {
     }
 
     @Test
+    void createCustomer_returns400WithEmptyName() throws Exception {
+        mockMvc.perform(post("/customers")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content("{\"email\":\"alice@test.com\"}"))
+            .andExpect(status().isBadRequest());
+    }
+
+    @Test
     void updateCustomer_returnsUpdatedCustomer() throws Exception {
        Customer updated = new Customer();
        updated.setId(1L);
