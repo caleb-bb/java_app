@@ -13,4 +13,5 @@ public interface CustomerService {
     Customer create(Customer customer);
     Optional<Customer> findById(Long id);
     Optional<Customer> update(Long id, Customer customer);
+    void delete(Long id);
 }

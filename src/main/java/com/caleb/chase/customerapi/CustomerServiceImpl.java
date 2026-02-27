@@ -30,4 +30,7 @@ public class CustomerServiceImpl implements CustomerService {
     public Optional<Customer> update(Long id, Customer customer){
         return Optional.empty();
     }
+
+    @Override
+    public void delete(Long id) {}
 }
