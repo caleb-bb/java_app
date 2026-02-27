@@ -2,9 +2,17 @@ package com.caleb.chase.customerapi;
 
 import java.time.LocalDateTime;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Email;
+
 public class Customer {
     private Long id;
+
+    @NotBlank
     private String name;
+
+    @NotBlank
+    @Email
     private String email;
     private LocalDateTime createdAt;
 

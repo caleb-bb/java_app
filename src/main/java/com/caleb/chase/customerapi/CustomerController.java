@@ -9,6 +9,8 @@ package com.caleb.chase.customerapi;
 import java.util.List;
 import java.util.Optional;
 
+import jakarta.validation.Valid;
+
 // Need GetMapping to tell the endpoint how to respond to GETs
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -48,7 +50,7 @@ public class CustomerController {
 
     @PostMapping("/customers")
     @ResponseStatus(HttpStatus.CREATED)
-    public Customer create(@RequestBody Customer customer) {
+    public Customer create(@Valid @RequestBody Customer customer) {
         return customerService.create(customer);
     }
 
