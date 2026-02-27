@@ -39,11 +39,13 @@ class CustomerControllerTests {
     }
 
     @Test
-    void getCustomer_notFound_returns404() throws Exception {
+    void getCustomer_notFound_returns404WithErrorBody() throws Exception {
         when(customerService.findById(99L)).thenReturn(Optional.empty());
 
         mockMvc.perform(get("/customers/99"))
-            .andExpect(status().isNotFound());
+            .andExpect(status().isNotFound())
+            .andExpect(jsonPath("$.error").value("Customer not found"))
+            .andExpect(jsonPath("$.id").value(99));
     }
 
     @Test
