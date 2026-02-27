@@ -89,6 +89,14 @@ class CustomerControllerTests {
     }
 
     @Test
+    void createCustomer_returns400WithBadEmail() throws Exception {
+        mockMvc.perform(post("/customers")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content("{\"name\":\"Alice\",\"email\":\"notanemail\"}"))
+            .andExpect(status().isBadRequest());
+    }
+
+    @Test
     void createCustomer_returns400WithoutName() throws Exception {
         mockMvc.perform(post("/customers")
             .contentType(MediaType.APPLICATION_JSON)
