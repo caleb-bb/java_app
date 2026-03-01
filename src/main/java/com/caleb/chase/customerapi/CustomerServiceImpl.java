@@ -13,6 +13,12 @@ import com.caleb.chase.customerapi.dto.CustomerDTO;
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
+    private final CustomerRepository customerRepository;
+
+    public CustomerServiceImpl(CustomerRepository customerRepository) {
+        this.customerRepository = customerRepository;
+    }
+
     @Override
     public List<Customer> findAll() {
         return List.of();
@@ -20,7 +26,10 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer create(CustomerDTO dto) {
-        throw new UnsupportedOperationException("Not yet implemented");
+        Customer customer = new Customer();
+        customer.setName(dto.name());
+        customer.setEmail(dto.email());
+        return customerRepository.save(customer);
     }
 
     @Override
