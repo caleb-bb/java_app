@@ -7,7 +7,10 @@ import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.junit.jupiter.api.Test;
 
+import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.common.serialization.StringDeserializer;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.core.ConsumerFactory;
@@ -52,6 +55,7 @@ class CustomerEventTest {
         // requires a name, so we have to make sure that this has a name, even
         // though only one consumer group is existing while we run this test.
         Map<String, Object> consumerProps = KafkaTestUtils.consumerProps("test-group", "true", embeddedKafkaBroker);
+        consumerProps.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
 
 
         // cf stands for consumer factory. This line creates the consumer
@@ -67,8 +71,6 @@ class CustomerEventTest {
         // that was used to create the consumer factory that we're using to
         // create this consumer.
         Consumer<String, String> consumer = cf.createConsumer();
-
-        customerService.create(new CustomerDTO("Alice", "alice@test.com"));
 
         // This subscribes our consumer, defined above, to the "customer-events"
         // topic that we're going to publish to. This all adds up to us being

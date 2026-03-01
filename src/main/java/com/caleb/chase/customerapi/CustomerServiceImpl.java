@@ -14,9 +14,12 @@ import com.caleb.chase.customerapi.dto.CustomerDTO;
 public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerRepository customerRepository;
+    private final CustomerEventPublisher eventPublisher;
 
-    public CustomerServiceImpl(CustomerRepository customerRepository) {
+    public CustomerServiceImpl(CustomerRepository customerRepository,
+                               CustomerEventPublisher eventPublisher) {
         this.customerRepository = customerRepository;
+        this.eventPublisher = eventPublisher;
     }
 
     @Override
@@ -29,7 +32,9 @@ public class CustomerServiceImpl implements CustomerService {
         Customer customer = new Customer();
         customer.setName(dto.name());
         customer.setEmail(dto.email());
-        return customerRepository.save(customer);
+        Customer saved = customerRepository.save(customer);
+        eventPublisher.publish(saved);
+        return saved;
     }
 
     @Override
