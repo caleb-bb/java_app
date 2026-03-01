@@ -8,9 +8,11 @@ package com.caleb.chase.customerapi;
 import java.util.List;
 import java.util.Optional;
 
+import com.caleb.chase.customerapi.dto.CustomerDTO;
+
 public interface CustomerService {
     List<Customer> findAll();
-    Customer create(Customer customer);
+    Customer create(CustomerDTO dto);
     Optional<Customer> findById(Long id);
     Optional<Customer> update(Long id, Customer customer);
     void delete(Long id);

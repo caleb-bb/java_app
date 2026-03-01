@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
 
+import com.caleb.chase.customerapi.dto.CustomerDTO;
+
 // The @Service annotation tells Spring "this is a bean, so register it in the context"
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -17,8 +19,8 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer create(Customer customer) {
-        return null;
+    public Customer create(CustomerDTO dto) {
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 
     @Override

@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import com.caleb.chase.customerapi.dto.CustomerDTO;
+
 @RestController
 public class CustomerController {
 
@@ -48,7 +50,7 @@ public class CustomerController {
 
     @PostMapping("/customers")
     @ResponseStatus(HttpStatus.CREATED)
-    public Customer create(@Valid @RequestBody Customer customer) {
+    public Customer create(@Valid @RequestBody CustomerDTO customer) {
         return customerService.create(customer);
     }
 
