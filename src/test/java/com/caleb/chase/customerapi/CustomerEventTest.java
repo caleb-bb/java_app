@@ -14,7 +14,7 @@ import com.caleb.chase.customerapi.dto.CustomerDTO;
 
 class CustomerEventTest {
     @Autowired CustomerService customerService;
-    @Autowired KafkaConsumer<String, String> testConsumer;
+    // @Autowired KafkaConsumer<String, String> testConsumer;
 
     @Test
     void creatingCustomer_publishesEvent() {
