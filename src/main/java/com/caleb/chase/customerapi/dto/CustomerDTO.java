@@ -5,4 +5,4 @@ import jakarta.validation.constraints.Email;
 
 public record CustomerDTO(
                           @NotBlank String name,
-                          @NotBlank String email) {}
+                          @NotBlank @Email String email) {}
