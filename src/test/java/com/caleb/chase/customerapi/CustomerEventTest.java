@@ -21,6 +21,7 @@ import org.springframework.kafka.test.utils.KafkaTestUtils;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.caleb.chase.customerapi.CustomerEventConsumer;
 import com.caleb.chase.customerapi.CustomerService;
 import com.caleb.chase.customerapi.dto.CustomerDTO;
 
@@ -38,8 +39,8 @@ import com.caleb.chase.customerapi.dto.CustomerDTO;
 @EmbeddedKafka(partitions = 1, topics = {"customer-events"})
 class CustomerEventTest {
     @Autowired CustomerService customerService;
-    // This
     @Autowired EmbeddedKafkaBroker embeddedKafkaBroker;
+    @Autowired CustomerEventConsumer customerEventConsumer;
 
     @Test
     void creatingCustomer_publishesEvent() {
@@ -85,4 +86,15 @@ class CustomerEventTest {
 
         consumer.close();
     }
+
+    @Test
+    void consumer_consumesPublishedEvent() {
+        Map<String, Object> consumerProps = KafkaTestUtils.consumerProps("test-group", "true", embeddedKafkaBroker);
+        consumerProps.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+
+        customerService.create(new CustomerDTO ("Alice", "alice@test.com"));
+
+        assertThat(customerEventConsumer.getMessages().contains("Alice"));
+    }
+
 }
